@@ -159,6 +159,9 @@ Ensure the Docker socket is accessible:
 ```bash
 ls -l /var/run/docker.sock
 ```
+```bash
+usermod -aG docker zabbix
+```
 
 Expected output should show the `docker` group has read/write permissions:
 

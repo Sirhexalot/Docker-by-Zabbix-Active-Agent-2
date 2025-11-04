@@ -102,13 +102,13 @@ Use this if you want to set a specific hostname for each agent:
 
 ```ini
 # Zabbix Server IP or hostname for active checks
-ServerActive=YOUR_ZABBIX_SERVER_IP:10051
+ServerActive=YOUR_ZABBIX_SERVER_IP
 
 # Static hostname - must match the host name in Zabbix frontend EXACTLY
 Hostname=YOUR_HOST_NAME
 
 # Optional: Disable passive checks if only using active mode
-Server=
+# Server=
 
 # Enable Docker plugin (usually enabled by default)
 Plugins.Docker.Endpoint=unix:///var/run/docker.sock
@@ -126,13 +126,13 @@ Use this if you want the agent to automatically use the system's hostname:
 
 ```ini
 # Zabbix Server IP or hostname for active checks
-ServerActive=YOUR_ZABBIX_SERVER_IP:10051
+ServerActive=YOUR_ZABBIX_SERVER_IP
 
 # Dynamic hostname - agent will query this item to get the hostname
 HostnameItem=system.hostname
 
 # Optional: Disable passive checks if only using active mode
-Server=
+# Server=
 
 # Enable Docker plugin (usually enabled by default)
 Plugins.Docker.Endpoint=unix:///var/run/docker.sock

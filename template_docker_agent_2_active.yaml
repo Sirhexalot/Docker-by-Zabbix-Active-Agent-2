@@ -91,20 +91,20 @@ zabbix_export:
           tags:
             - tag: component
               value: system
-          triggers:
-            - uuid: 2c62bb4d95684e6984447027d117ff50
-              name: "Docker: No data received for 30m"
-              event_name: "Docker: No data received for 30m"
-              expression: "nodata(/Docker by Active Agent/docker.name,30m)=1"
-              priority: WARNING
-              manual_close: "YES"
-              description: "Active agent has not sent data for 30 minutes."
-              dependencies:
-                - name: "Docker: Service is down"
-                  expression: "last(/Docker by Active Agent/docker.ping)=0"
-              tags:
-                - tag: scope
-                  value: availability
+          #triggers:
+          #  - uuid: 2c62bb4d95684e6984447027d117ff50
+          #    name: "Docker: No data received for 30m"
+          #    event_name: "Docker: No data received for 30m"
+          #    expression: "nodata(/Docker by Active Agent/docker.name,30m)=1"
+          #    priority: WARNING
+          #    manual_close: "YES"
+          #    description: "Active agent has not sent data for 30 minutes."
+          #    dependencies:
+          #      - name: "Docker: Service is down"
+          #        expression: "last(/Docker by Active Agent/docker.ping)=0"
+          #    tags:
+          #      - tag: scope
+          #        value: availability
         - uuid: a7e5441fe4d64848a7c5e374ea99ad56
           name: "Docker: Server version"
           type: DEPENDENT
@@ -384,6 +384,29 @@ zabbix_export:
               tags:
                 - tag: scope
                   value: availability
+          graph_prototypes:
+            - uuid: 8a1c2bde3f7a4a5ca2f3d1c0b9e8f7a1
+              name: "Container {#NAME}: CPU % and Memory"
+              graph_items:
+                - color: 1A7C11
+                  item:
+                    host: "Docker by Active Agent"
+                    key: 'docker.container_stats.cpu_usage["{#NAME}"]'
+                - color: F63100
+                  item:
+                    host: "Docker by Active Agent"
+                    key: 'docker.container_stats.memory.usage["{#NAME}"]'
+            - uuid: 1f2e3d4c5b6a49879a0b1c2d3e4f5a6b
+              name: "Container {#NAME}: Network RX/TX"
+              graph_items:
+                - color: 2774A4
+                  item:
+                    host: "Docker by Active Agent"
+                    key: 'docker.container_stats.net.rx["{#NAME}"]'
+                - color: A54F00
+                  item:
+                    host: "Docker by Active Agent"
+                    key: 'docker.container_stats.net.tx["{#NAME}"]'
       tags:
         - tag: class
           value: software
@@ -404,6 +427,7 @@ zabbix_export:
         - macro: "{$DOCKER.CONTAINERS.STOPPED.MAX.CRIT}"
           value: "20"
           description: "Critical threshold for stopped containers"
+
       valuemaps:
         - uuid: c289195aa4dc47ab883fa95c9cb6fd09
           name: "Docker flag"
@@ -419,3 +443,31 @@ zabbix_export:
               newvalue: Down
             - value: "1"
               newvalue: Up
+
+  graphs:
+    - uuid: d8fba9b1f1f04628a0a460bf3f2a12c3
+      name: "Docker: Containers"
+      graph_items:
+        - drawtype: GRADIENT_LINE
+          color: 199C0D
+          item:
+            host: "Docker by Active Agent"
+            key: docker.containers.running
+        - sortorder: "1"
+          drawtype: BOLD_LINE
+          color: F63100
+          item:
+            host: "Docker by Active Agent"
+            key: docker.containers.paused
+        - sortorder: "2"
+          drawtype: BOLD_LINE
+          color: 00611C
+          item:
+            host: "Docker by Active Agent"
+            key: docker.containers.stopped
+        - sortorder: "3"
+          drawtype: BOLD_LINE
+          color: F7941D
+          item:
+            host: "Docker by Active Agent"
+            key: docker.containers.total

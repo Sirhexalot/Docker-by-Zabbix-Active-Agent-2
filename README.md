@@ -227,7 +227,7 @@ You can customize container discovery and alerting using the following macros:
 | -------------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
 | `{$DOCKER.LLD.FILTER.CONTAINER.MATCHES}`     | `.*`               | Regular expression to match container names for discovery               |
 | `{$DOCKER.LLD.FILTER.CONTAINER.NOT_MATCHES}` | `CHANGE_IF_NEEDED` | Regular expression to exclude container names from discovery            |
-| `{$DOCKER.CONTAINERS.STOPPED.MAX.WARN}`      | `10`               | Maximum number of stopped containers before warning trigger (threshold) |
+| `{$DOCKER.CONTAINERS.STOPPED.MAX.WARN}`      | `1`                | Maximum number of stopped containers before warning trigger (threshold) |
 | `{$DOCKER.CONTAINERS.STOPPED.MAX.CRIT}`      | `20`               | Critical threshold for stopped containers (high priority alert)         |
 
 ### Macro Configuration Examples
@@ -304,7 +304,7 @@ To change the warning threshold for stopped containers to 5 and critical to 15:
 
 ### Container Capacity Management
 
-- **Docker: Too many stopped containers** (Warning) - Triggered when the number of stopped containers exceeds `{$DOCKER.CONTAINERS.STOPPED.MAX.WARN}` (default: 10)
+- **Docker: Too many stopped containers** (Warning) - Triggered when the number of stopped containers exceeds `{$DOCKER.CONTAINERS.STOPPED.MAX.WARN}` (default: 1)
 - **Docker: Critical number of stopped containers** (High priority) - Triggered when stopped containers exceed `{$DOCKER.CONTAINERS.STOPPED.MAX.CRIT}` (default: 20)
 - **Docker: Stopped containers count increased** (Info) - Informational trigger when new containers are stopped
 

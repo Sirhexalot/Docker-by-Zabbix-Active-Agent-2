@@ -147,11 +147,6 @@ Plugins.Docker.Endpoint=unix:///var/run/docker.sock
   - `system.hostname` - Short hostname (e.g., "server01")
   - `system.hostname[fqdn]` - Fully qualified domain name (e.g., "server01.example.com")
 
-**Which option to choose?**
-
-- **Option A (Hostname):** Better for manual control, testing, or when system hostname doesn't match desired Zabbix name
-- **Option B (HostnameItem):** Better for automation, consistent naming, and large deployments
-
 ### 5. Verify Docker Socket Permissions
 
 Ensure the Docker socket is accessible:
@@ -159,10 +154,6 @@ Ensure the Docker socket is accessible:
 ```bash
 ls -l /var/run/docker.sock
 ```
-```bash
-usermod -aG docker zabbix
-```
-
 Expected output should show the `docker` group has read/write permissions:
 
 ```
